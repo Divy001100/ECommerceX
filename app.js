@@ -16,7 +16,7 @@ const AppError = require('./Public/utils.js/appError')
 const globalErrorHnadler = require('./controller/errorController')
 
 
-
+// start express app
 const app = express()
 // GLOBAL MIDDLEWEAR 
 
