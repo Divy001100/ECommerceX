@@ -6,7 +6,7 @@ const imageProcessor = require('./../Public/utils.js/multer/user')
 const multer = require('multer')
 const router = express.Router()
 
-const upload = multer({dest:"public/img/users"})
+// const upload = multer({dest:"public/img/users"})
 
 // ALLOW USER TO SINGUP,RESET AND ETC WITHOUT LOGIN
 router.
@@ -28,8 +28,9 @@ router.patch('/updateMyPassword',
     authController.updatePassword
 )
 // updateme
-router.patch('/updateMe',imageProcessor.uploadUserPhoto,
-    imageProcessor.resizeUserPhoto,
+router.patch('/updateMe',
+    // imageProcessor.uploadUserPhoto,
+    // imageProcessor.resizeUserPhoto,
     userController.updateMe
 )
 // deleteme
