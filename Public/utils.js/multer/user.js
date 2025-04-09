@@ -26,6 +26,6 @@ exports.resizeUserPhoto =(req,res,next)=>{
  sharp(req.file.buffer)
  .toFormat('jpeg')
  .jpeg({quality:90})
- .toFile(`public/img/users/${req.file.filename}`)
+//  .toFile(`public/img/users/${req.file.filename}`)
  next()
 }

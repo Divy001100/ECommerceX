@@ -37,7 +37,7 @@ exports.updateReview = catchAsync(async(req,res,next)=>{
     const review = await Review.findById(req.params.id);
 
     const check =await review.checkUserAndAdmin(req.user)
-    console.log(check)
+    // console.log(check)
     if(!check){
         return next(new AppError("Permission Denied", 403))
     }

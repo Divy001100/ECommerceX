@@ -39,7 +39,7 @@ exports.resizeProductImages = async (req, res, next) => {
         .resize(500, 500)
         .toFormat('jpeg')
         .jpeg({ quality: 90 })
-        .toFile(`public/img/products/cover/${filename}`);
+        // .toFile(`public/img/products/cover/${filename}`);
   
       req.body.imageCover = filename;
     }
@@ -55,7 +55,7 @@ exports.resizeProductImages = async (req, res, next) => {
           .resize(100, 100)
           .toFormat('jpeg')
           .jpeg({ quality: 90 })
-          .toFile(`public/img/products/products/${filename}`);
+          // .toFile(`public/img/products/products/${filename}`);
   
         req.body.images.push(filename);
       }

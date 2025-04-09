@@ -85,9 +85,9 @@ exports.createOne = Model=>catchAsync(async(req,res,next)=>{
     return filtered}       
 
 exports.updateOne =Model=>catchAsync(async(req,res,next)=>{
-    if(!req.body.imageCover){
-        console.log("noimagecover")
-    }
+    // if(!req.body.imageCover){
+    //     console.log("noimagecover")
+    // }
     const editableFields = filteredObj(req.body,'createdAt',"ratingsAverage","ratingsQuantity" )
        const doc = await Model.findByIdAndUpdate(req.params.id, editableFields,{
         runValidators:true,

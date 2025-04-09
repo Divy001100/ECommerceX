@@ -53,8 +53,8 @@ reviewSchema.methods.checkUserAndAdmin = function(user){
 
 
  if(user.role !=='admin' && this.user._id.toString() !==user.id){
-  console.log(this.user._id.toString(),
-user.id)
+//   console.log(this.user._id.toString(),
+// user.id)
     return false
  }
  return true
@@ -101,7 +101,7 @@ reviewSchema.pre('save',function( next){
 
 reviewSchema.post(/^findOneAnd/,async function(doc){
    if(doc){
-    console.log("hey")
+    // console.log("hey")
     await doc.constructor.calRating(doc.product)
    }
 })

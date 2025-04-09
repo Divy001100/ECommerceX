@@ -4,8 +4,8 @@ dotenv.config({path:'./config.env'})
 
 // fixed regrence error- uncaught exeption
 process.on('uncaughtException', err=>{
-    console.log("UNHANDLED EXCEPTION 🔥:shuting down")
-    console.log(err.name, err.message)
+    // console.log("UNHANDLED EXCEPTION 🔥:shuting down")
+    // console.log(err.name, err.message)
      process.exit(1)
     
 

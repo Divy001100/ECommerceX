@@ -62,8 +62,8 @@ exports.webHookCheckout = async (req, res, next) => {
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
-  console.log('🔥 Stripe webhook hit');
-  console.log('Event Type:', event.type);
+  // console.log('🔥 Stripe webhook hit');
+  // console.log('Event Type:', event.type);
 
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object;

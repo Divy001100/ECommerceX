@@ -22,8 +22,8 @@ const filteredObj = (obj, ...excludedFields)=>{
 
 
 exports.updateMe = catchAsync(async(req,res,next)=>{
-console.log(req.file)
-console.log(req.body)
+// console.log(req.file)
+// console.log(req.body)
     
     // 1 create error if user post password related data
       if(req.body.password){

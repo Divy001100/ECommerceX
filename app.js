@@ -1,6 +1,7 @@
 const express = require('express')
 const morgan = require('morgan')
 const helmet = require('helmet')
+const compression = require('compression')
 const mongoSantize = require('express-mongo-sanitize')
 const xss = require('xss-clean')
 const hpp = require('hpp')
@@ -55,7 +56,8 @@ if(process.env.NODE_ENV==='development'){
  
 }
 
-
+// compress the text send to the cleint 
+app.use(compression())
 
 
 

@@ -56,7 +56,7 @@ class SendEmail {
         });
       }
 
-      console.log('✅ Reset email sent to:', this.to);
+      // console.log('✅ Reset email sent to:', this.to);
     } catch (err) {
       console.error('❌ Failed to send reset email:', err.message);
     }
@@ -118,7 +118,7 @@ class SendEmail {
           });
         }
   
-        console.log('✅ Invoice sent to:', this.to);
+        // console.log('✅ Invoice sent to:', this.to);
       } catch (err) {
         console.error('❌ Failed to send invoice email:', err.message);
       }
