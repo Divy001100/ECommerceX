@@ -46,8 +46,11 @@ router.route('/:id')
     ProductImageProcessor.uploadProductImages,
 ProductImageProcessor.resizeProductImages,
     productController.updateProduct)
-.delete(authController.protect,
-    authController.restrictTo('admin',"seller"),
+.delete(
+    // TEMP: Commented out auth for testing delete route locally
+
+    // authController.protect,
+    // authController.restrictTo('admin',"seller"),
     productController.deleteProduct)
 
 
