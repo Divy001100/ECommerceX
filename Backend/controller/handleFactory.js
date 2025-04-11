@@ -61,11 +61,14 @@ exports.createOne = Model=>catchAsync(async(req,res,next)=>{
     
   
     // /product login=user, product =productid nested routes
-    if(!req.body.product){
-        req.body.product = req.params.productId }
-    if(!req.body.user){
-    req.body.user= req.user.id
-            }
+
+    // TEMP: Commented out for testing without auth logic
+
+    // if(!req.body.product){
+    //     req.body.product = req.params.productId }
+    // if(!req.body.user){
+    // req.body.user= req.user.id
+    //         }
             
    
     // const product =Product.create
