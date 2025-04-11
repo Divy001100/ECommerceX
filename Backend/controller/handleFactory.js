@@ -24,6 +24,8 @@ exports.getAll = Model=>
   
      doc = await features.query
 
+     
+
     res.status(200)
     .json({
         status:"success",

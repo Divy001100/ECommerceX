@@ -8,8 +8,8 @@ const router = express.Router()
 
 
 // reviews nested route
-router
-.use('/:productId/reviews', reviewRouter)
+// router
+// .use('/:productId/reviews', reviewRouter)
 // aliasing top 5 prod
 router.route('/top-5-cheap')
 .get(authController.protect,
@@ -33,8 +33,9 @@ router.get('/product-stats', authController.protect,
 router
 .route('/')
 .get( productController.getAllProducts)
-.post(authController.protect,
-    authController.restrictTo("admin","seller"),
+.post(
+    // authController.protect,
+    // authController.restrictTo("admin","seller"),
 productController.createProduct)
 
 

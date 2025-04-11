@@ -11,6 +11,7 @@ const userRouter = require('./router/UserRouter')
 const reviewRouter = require('./router/reviewRoute')
 const orderRouter = require('./router/orderRoute')
 const orderController = require('./controller/orderController')
+const cors = require('cors')
 
 
 const AppError = require('./Public/utils.js/appError')
@@ -50,6 +51,8 @@ app.use(hpp({
 }))
 
 
+app.use(cors());
+
 // use morgan for dev
 if(process.env.NODE_ENV==='development'){
     app.use(morgan('dev'))
@@ -60,6 +63,7 @@ if(process.env.NODE_ENV==='development'){
 app.use(compression())
 
 
+app.set('trust proxy', 1); // or true
 
 
 

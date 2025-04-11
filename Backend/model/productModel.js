@@ -1,22 +1,6 @@
 const mongoose = require('mongoose')
 // subschema for pickuplocation
 
-const pickupLocationSchema = new mongoose.Schema({
-    type: {
-      type: String,
-      default: 'Point',
-      enum: ['Point']
-    },
-    coordinates: {
-      type: [Number],
-      required: [true, 'Product must have pickup coordinates']
-    },
-    address: String,
-    city: String,
-    state: String,
-    postalCode: String,
-    country: String
-  }, { _id: false });
   
 
 const productSchema = new mongoose.Schema({
@@ -86,10 +70,7 @@ active:{
 },
 color:String,
 // geoLocation
-pickupLocation: {
-    type: pickupLocationSchema,
-    select: false
-  }
+
   
 },
 
