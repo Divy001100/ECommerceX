@@ -147,7 +147,7 @@ export default function HomePage() {
     }}
   >
     <iframe
-    src="/admin/preview-dashboard?preview=true"
+    src="/#/admin/preview-dashboard?preview=true"
       title="Admin Dashboard Preview"
       className="w-full h-full rounded-3xl"
       style={{ border: "none", backgroundColor: "transparent" }}
@@ -187,7 +187,7 @@ export default function HomePage() {
     }}
   >
     <iframe
-    src="/admin/preview-control-panel?preview=true"
+    src="/#/admin/preview-control-panel?preview=true"
       title="Admin Dashboard Preview"
       className="w-full h-full rounded-3xl"
       style={{ border: "none", backgroundColor: "transparent" }}
