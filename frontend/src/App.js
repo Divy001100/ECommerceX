@@ -1,4 +1,4 @@
-import { createBrowserRouter, createHashRouter RouterProvider} from 'react-router'
+import { createBrowserRouter, createHashRouter, RouterProvider} from 'react-router'
 import RootLayout from './pages/Layout/RootLayout.js'
 import HomePage from './pages/Home'
 import ProductsPage,{loader as productsLoader} from './pages/Products/Products.js'
