@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: ecommercex-frontend
+    env: node
+    buildCommand: npm run build
+    startCommand: serve -s build
+    staticPublishPath: build
+    envVars:
+      - key: NODE_VERSION
+        value: 18
