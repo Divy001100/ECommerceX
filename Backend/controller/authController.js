@@ -119,7 +119,8 @@ exports.forgotPassword = catchAsync(async(req,res,next)=>{
     resetToken =await user.createPasswordResetToken()
     await user.save({validateBeforeSave:false})
     // generate a link to take the user in resetPassword
-    const resetURL = process.env.FRONTEND_URL + `/users/resetPassword/${resetToken}`;
+    const resetLink =  process.env.FRONTEND_URL + `/users/resetPassword/${resetToken}`;
+
     // 3 send it back to the user's email
 
     //    await sendEmail({
