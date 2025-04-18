@@ -1,5 +1,6 @@
 import { useLoaderData } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { apiFetch } from '../../../api';
 function OrderDetailsPage() {
   const order = useLoaderData();
 
@@ -36,7 +37,7 @@ export default OrderDetailsPage;
 export async function loader({ params }) {
     const token = localStorage.getItem('token');
   
-    const res = await fetch(`/api/v1/order/my-orders/${params.orderId}`, {
+    const res = await apiFetch(`/api/v1/order/my-orders/${params.orderId}`, {
       headers: {
         Authorization: `Bearer ${token}`
       }

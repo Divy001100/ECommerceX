@@ -2,6 +2,7 @@ import { useParams } from "react-router";
 import { useRouteLoaderData, useSubmit } from "react-router";
 import EditReviewForm from "../../components/Review/EditReviewForm";
 import { redirect } from "react-router";
+import { apiFetch } from "../../api";
 
 function EditReviewPage() {
   const { productId, reviewId } = useParams(); // Get productId and reviewId from the URL
@@ -37,7 +38,7 @@ export async function action({ request, params }) {
 
   // Handle DELETE request
   if (request.method === "DELETE") {
-    const response = await fetch(`/api/v1/products/${productId}/reviews/${reviewId}`, {
+    const response = await apiFetch(`/api/v1/products/${productId}/reviews/${reviewId}`, {
       method: "DELETE", // DELETE request for deleting the review
       headers: {
         "Content-Type": "application/json",
@@ -65,7 +66,7 @@ export async function action({ request, params }) {
     images: images.length > 0 ? images : [], // Force empty array if no images
   };
 
-  const response = await fetch(`/api/v1/products/${productId}/reviews/${reviewId}`, {
+  const response = await apiFetch(`/api/v1/products/${productId}/reviews/${reviewId}`, {
     method: "PATCH", // Handle PATCH request for updating the review
     headers: {
       "Content-Type": "application/json",

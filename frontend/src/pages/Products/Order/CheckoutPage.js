@@ -1,4 +1,4 @@
-
+import { apiFetch } from "../../../api";
 
 function CheckoutPage(){
 
@@ -12,7 +12,7 @@ function CheckoutPage(){
 export async function loader({ params }) {
     const token = localStorage.getItem("token");
   const id = params.productId
-    const response = await fetch(`/api/v1/order/checkout-session/${params.productId}`, {
+    const response = await apiFetch(`/api/v1/order/checkout-session/${params.productId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

@@ -1,5 +1,6 @@
 import ViewMe from "../../components/User/ViewMe"
 import { useLoaderData } from "react-router"
+import { apiFetch } from "../../api"
 function MePage(){
 const user = useLoaderData()
     return(
@@ -15,7 +16,7 @@ export default MePage
 
 export async function loader(){
     const token = localStorage.getItem('token')
-    const response = await fetch (`/api/v1/users/me`,{
+    const response = await apiFetch (`/api/v1/users/me`,{
         method:"GET",
         headers:{
           "Content-Type": "application/json",

@@ -1,5 +1,6 @@
 import { redirect, useRouteLoaderData } from "react-router"
 import ProductItem from "../../components/Product/ProductItem"
+import { apiFetch } from "../../api"
 function ProductDetailsPage(){
 const product = useRouteLoaderData("product-detail")
 
@@ -18,7 +19,7 @@ export default ProductDetailsPage
 
 export async function loader({request,params}){
     const id = params.productId
-    const response = await fetch(`/api/v1/products/${id}`)
+    const response = await apiFetch(`/api/v1/products/${id}`)
 
     if(!response.ok){
         throw  new Response(JSON.stringify({message:`could not fetch product with ${id}`}),
@@ -37,7 +38,7 @@ export async function action({ request, params }) {
     const token = localStorage.getItem('token');
   
     // Make DELETE request to delete the product
-    const response = await fetch(`/api/v1/products/${productId}`, {
+    const response = await apiFetch(`/api/v1/products/${productId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

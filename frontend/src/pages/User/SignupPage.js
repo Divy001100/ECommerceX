@@ -1,6 +1,7 @@
 
 import { redirect } from 'react-router'
 import SignUpForm from '../../components/User/SingupForm'
+import { apiFetch } from '../../api'
 
 
 function SignUpPage(){
@@ -28,7 +29,7 @@ export async function action({request}){
       }
 
 
-    const response = await fetch(`/api/v1/users/signUp`,{
+    const response = await apiFetch(`/api/v1/users/signUp`,{
 
         method:"POST",
         headers:{

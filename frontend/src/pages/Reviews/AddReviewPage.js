@@ -1,5 +1,6 @@
 import { redirect } from "react-router";
 import AddReviewForm from "../../components/Review/AddReviewForm";
+import { apiFetch } from "../../api";
 
 function AddReviewPage() {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -34,7 +35,7 @@ export async function action({ request, params }) {
       
     };
   
-    const response = await fetch(`/api/v1/products/${productId}/reviews`, {
+    const response = await apiFetch(`/api/v1/products/${productId}/reviews`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

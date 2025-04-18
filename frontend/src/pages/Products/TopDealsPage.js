@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 import ProductsList from "../../components/Product/ProductsList";
-
+import { apiFetch } from "../../api";
 function TopDealsPage() {
   const products = useLoaderData();
  console.log(products)
@@ -17,7 +17,7 @@ function TopDealsPage() {
 export default TopDealsPage;
 export async function loader() {
     const token = localStorage.getItem('token')
-    const res = await fetch("/api/v1/products/top-5-cheap",{
+    const res = await apiFetch("/api/v1/products/top-5-cheap",{
         headers:{
             "Content-Type":"application/json",
             Authorization: `Bearer ${token}`

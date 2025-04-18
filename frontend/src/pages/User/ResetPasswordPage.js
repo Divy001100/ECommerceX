@@ -1,6 +1,7 @@
 
 import { redirect } from 'react-router';
 import ResetPasswordForm from '../../components/User/ResetPasswordForm'
+import { apiFetch } from '../../api';
 
 function ResetPasswordPage(){
 
@@ -19,7 +20,7 @@ export async function action ({request,params}){
   }
 
   const resetToken = params.token
-    const response = await fetch(`/api/v1/users/resetPassword/${resetToken}`,{
+    const response = await apiFetch(`/api/v1/users/resetPassword/${resetToken}`,{
 method:"PATCH",
 headers:{
     "Content-Type":"application/json"

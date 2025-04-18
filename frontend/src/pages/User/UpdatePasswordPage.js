@@ -1,6 +1,6 @@
 import { redirect } from "react-router"
 import UpdatePasswordForm from "../../components/User/updatePasswordForm"
-
+import { apiFetch } from "../../api"
 
 function UpdatePasswordPage(){
     const token = localStorage.getItem('token')
@@ -21,7 +21,7 @@ export async function action({request}){
     passwordConfirm:data.get("passwordConfirm")
   }
 
-    const response = await fetch(`/api/v1/users/updateMyPassword`,{
+    const response = await apiFetch(`/api/v1/users/updateMyPassword`,{
         method:"PATCH",
         headers:{
             "Content-Type":"application/json",

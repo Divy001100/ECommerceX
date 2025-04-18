@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate,redirect } from "react-router-dom"; // This is still required for client-side redirection
-
+import { apiFetch } from "../../api";
 function DeleteMePage() {
     const navigate = useNavigate(); // Use navigate for client-side redirection
     const [isDeleted, setIsDeleted] = useState(false);
@@ -18,7 +18,7 @@ function DeleteMePage() {
         }
 
         try {
-            const response = await fetch(`/api/v1/users/deleteMe`, {
+            const response = await apiFetch(`/api/v1/users/deleteMe`, {
                 method: "PATCH", // Deactivating the account
                 headers: {
                     "Content-Type": "application/json",
@@ -68,7 +68,7 @@ export async function action({ request }) {
         throw new Response("Unauthorized", { status: 401 });
     }
 
-    const response = await fetch(`/api/v1/users/deleteMe`, {
+    const response = await apiFetch(`/api/v1/users/deleteMe`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",

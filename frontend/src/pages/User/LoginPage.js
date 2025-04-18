@@ -1,6 +1,6 @@
 import { redirect } from "react-router"
 import LoginForm from "../../components/User/LoginForm.js"
-
+import { apiFetch } from "../../api.js"
 
 
 function LoginPage(){
@@ -19,7 +19,7 @@ export async function action({ request }) {
       password: data.get("password")
     };
   
-    const response = await fetch(`/api/v1/users/logIn`, {
+    const response = await apiFetch(`/api/v1/users/logIn`, {
       method: "POST", // ✅ REQUIRED
       headers: {
         "Content-Type": "application/json"

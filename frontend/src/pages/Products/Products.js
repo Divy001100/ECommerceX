@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import ProductsList from "../../components/Product/ProductsList";
 import { useLoaderData } from "react-router-dom";
+import { apiFetch } from "../../api";
 // import { json } from '@remix-run/router'
 
 export default function ProductsPage(){
@@ -22,7 +23,7 @@ export default function ProductsPage(){
 export async function loader({request}) {
   const url = new URL(request.url);
   const queryString = url.searchParams.toString(); // gives full ?... string
-  const res = await fetch(`/api/v1/products?${queryString}`);
+  const res = await apiFetch(`/api/v1/products?${queryString}`);
 
   if (!res.ok) {
    throw  new Response(JSON.stringify({message:'could not fetch events'}),

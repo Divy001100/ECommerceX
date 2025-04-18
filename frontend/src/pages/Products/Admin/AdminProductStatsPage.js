@@ -1,5 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 import { useState, useMemo } from "react";
+import { apiFetch } from "../../../api";
 import {
   ResponsiveContainer,
   PieChart,
@@ -371,7 +372,7 @@ export async function loader({ request }) {
     }
   }
 
-  const res = await fetch(`/api/v1/products/product-stats${isPreview ? '?preview=true' : ''}`, {
+  const res = await apiFetch(`/api/v1/products/product-stats${isPreview ? '?preview=true' : ''}`, {
     headers
   });
 

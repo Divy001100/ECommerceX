@@ -1,6 +1,7 @@
 import { Form, redirect, useActionData } from "react-router-dom";
 import { useNavigate, useNavigation } from "react-router-dom";
 import { useState } from "react";
+import { apiFetch } from "../../api";
 
 export default function ProductForm({ method, product }) {
   const errors = useActionData();
@@ -284,7 +285,7 @@ export async function action({ request,params }) {
  }
 
 
-  const response = await fetch(url, {
+  const response = await apiFetch(url, {
     method: request.method,
     headers: {
       "Content-Type": "application/json",

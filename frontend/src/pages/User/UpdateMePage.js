@@ -1,6 +1,7 @@
 import { redirect } from "react-router";
 import UpdateMeForm from "../../components/User/UpdateMeForm";
 import { useLoaderData } from "react-router";
+import { apiFetch } from "../../api";
 
 function UpdateMe() {
     const user = useLoaderData()
@@ -25,7 +26,7 @@ export async function action({ request }) {
         photo: data.get('photo')
     };
 
-    const response = await fetch(`/api/v1/users/updateMe`, {
+    const response = await apiFetch(`/api/v1/users/updateMe`, {
         method: "PATCH",
         headers: {
             "Content-type": "application/json",

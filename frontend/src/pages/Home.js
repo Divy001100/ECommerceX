@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useSubmit } from "react-router-dom";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-
+import { apiFetch } from "../api";
 export default function HomePage() {
   const [topProducts, setTopProducts] = useState([]);
   const { scrollYProgress } = useScroll();
@@ -11,7 +11,7 @@ export default function HomePage() {
 
   useEffect(() => {
     async function fetchTopProducts() {
-      const res = await fetch("/api/v1/products/top-5-cheap?preview=true");
+      const res = await apiFetch("/api/v1/products/top-5-cheap?preview=true");
 
       const data = await res.json();
       console.log("Fetched top products:", data); 

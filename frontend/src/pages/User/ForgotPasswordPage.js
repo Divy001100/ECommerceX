@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { apiFetch } from "../../api";
 
 function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -13,7 +14,7 @@ function ForgotPasswordPage() {
     setError(null);
 
     try {
-      const res = await fetch("/api/v1/users/forgotPassword", {
+      const res = await apiFetch("/api/v1/users/forgotPassword", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -123,7 +124,7 @@ export async function action({ request }) {
     const data = await request.formData(); // ✅ match the format
     const email = data.get("email");
   
-    const response = await fetch(`/api/v1/users/forgotPassword`, {
+    const response = await apiFetch(`/api/v1/users/forgotPassword`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

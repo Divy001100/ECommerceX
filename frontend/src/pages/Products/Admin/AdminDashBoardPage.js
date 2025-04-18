@@ -3,6 +3,7 @@ import { useLoaderData,useLocation } from "react-router-dom";
 import { useState, useEffect, } from "react";
 import DrilldownChart from "../../../components/Admin/DrillDownChart";
 import ProductCard from "../../../components/Admin/ProductCard";
+import { apiFetch } from "../../../api";
 
 import ReviewTable from "../../../components/Admin/ReviewTable";
 
@@ -114,11 +115,11 @@ export async function loader() {
   }
 
   const [userRes, productRes, reviewRes] = await Promise.all([
-    fetch("/api/v1/users?limit=1000", {
+    apiFetch("/api/v1/users?limit=1000", {
       headers: token ? { Authorization: `Bearer ${token}` } : {},
     }),
-    fetch("/api/v1/products?limit=1000"),
-    fetch("/api/v1/reviews?limit=1000", {
+    apiFetch("/api/v1/products?limit=1000"),
+    apiFetch("/api/v1/reviews?limit=1000", {
       headers: token ? { Authorization: `Bearer ${token}` } : {},
     }),
   ]);
