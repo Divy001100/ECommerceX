@@ -25,6 +25,11 @@ const orderSchema = new mongoose.Schema({
     enum: ['delivered', 'in-transit', 'pending'],
     default: 'pending'
   },
+  sessionId: {
+    type: String,
+    required: true,
+    unique: true
+  },
   shippingLocation: {
     address: String,
     city: String,

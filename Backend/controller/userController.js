@@ -73,23 +73,8 @@ exports.getUser = factory.getOne(User)
 
 
 
-exports.createUser = (req,res,next)=>{
-    res.status(200).json({
-        status:"success",
-        message:"this route hasn't been implemented yet"
-    })
-}
+exports.createUser =factory.createOne(User)
 
-exports.updateUser =(req,res,next)=>{
-    res.status(200).json({
-        status:"success",
-        message:"this route hasn't been implemented yet"
-    })
-}
+exports.updateUser =factory.updateOne(User)
 
-exports.deleteUser =(req,res,next)=>{
-    res.status(200).json({
-        status:"success",
-        message:"this route hasn't been implemented yet"
-    })
-}
+exports.deleteUser =factory.deleteOne(User)

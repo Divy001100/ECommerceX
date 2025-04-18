@@ -1,6 +1,8 @@
 import { NavLink } from "react-router";
 
 function ProductNavigation(){
+    const user = JSON.parse(localStorage.getItem("user"));
+
 
     return(
         <nav className="flex   ">
@@ -11,11 +13,12 @@ function ProductNavigation(){
                    to=".">🛒 All Products
                    </NavLink> 
                 </li>
-                <li>
+                {user?( <li>
                     <NavLink 
                     className={({isActive})=>isActive?'text-decoration-line: underline text-yellow-600':undefined}
                     to="new">➕ Add a new Product</NavLink>
-                </li>
+                </li>):null }
+               
                 {/* <li>
                    <NavLink 
                    className={({isActive})=>isActive?'text-decoration-line: underline text-yellow-600':undefined}

@@ -39,23 +39,24 @@ ratingsQuantity:Number,
 Stock:Number,
 createdAt:Date,
 brand:String,
-discount:{
-    type:Number,
-    validate:{
-        validator:function(val){
-            return val<this.price
+// discount:{
+//     type:Number,
+//     validate:{
+//         validator:function(val){
+//             return val<this.price
 
-        },
-      message:'Discount can not be greater than price itself'
-    }
-    },
+//         },
+//       message:'Discount can not be greater than price itself'
+//     }
+//     },
 // for claothing
 size:{
     type:String,
-    required:function(){
-       return this.category.includes('clothing')
-    }
-}, 
+},
+//     required:function(){
+//        return this.category.includes('clothing')
+//     }
+// }, 
 gender:{
     type:String,
     enum:['male', 'female', "uniSex"],
@@ -103,6 +104,70 @@ productSchema.pre('save', function(next){
  
     next()
 })
+
+// for size validation 
+productSchema.pre('findOneAndUpdate', async function (next) {
+    const update = this.getUpdate(); // fields being updated
+    const idQuery = this.getQuery(); // filter like { _id: '...' }
+  
+    // Get the current document from DB
+    const existing = await this.model.findOne(idQuery);
+  
+    if (!existing) {
+      return next(); // Let the actual controller handle missing doc
+    }
+  
+    const finalCategory = update.category || existing.category;
+    const finalSize = update.size || existing.size;
+  
+    if (finalCategory?.includes('clothing') && (!finalSize || finalSize.trim() === '')) {
+      return next(new Error('Size is required for clothing category'));
+    }
+  
+    next();
+  });
+
+  productSchema.pre('save', function (next) {
+    if (
+      this.category?.includes('clothing') &&
+      (!this.size || this.size.trim() === '')
+    ) {
+      return next(new Error('Size is required for clothing category'));
+    }
+    next();
+  });
+
+//   middlewear for validating discount in patch
+productSchema.pre('findOneAndUpdate', async function (next) {
+    const update = this.getUpdate();
+    const existing = await this.model.findOne(this.getQuery());
+  
+    if (!existing) return next();
+  
+    const finalPrice = update.price ?? existing.price;
+    const finalDiscount = update.discount ?? existing.discount;
+  
+    if (typeof finalDiscount === 'number' && finalDiscount >= finalPrice) {
+      return next(new Error('Discount cannot be greater than or equal to price'));
+    }
+  
+    next();
+  });
+// validate discount in post   
+productSchema.pre('save', function (next) {
+    if (
+      typeof this.discount === 'number' &&
+      typeof this.price === 'number' &&
+      this.discount >= this.price
+    ) {
+      return next(new Error('Discount cannot be greater than or equal to price'));
+    }
+    next();
+  });
+  
+
+  
+  
 
 
 productSchema.virtual('reviews',{

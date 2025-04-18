@@ -15,33 +15,57 @@ exports.getCheckoutSession =catchAsync(async (req,res,next)=>{
     const product = await Product.findById(req.params.productId)
 
     // create the session
-    const session = await stripe.checkout.sessions.create({
-        payment_method_types: ['card'],
-        mode: 'payment',
-        success_url: `${req.protocol}://${req.get('host')}/api/v1/products`,
-        cancel_url: `${req.protocol}://${req.get('host')}/api/v1/products`,
-        customer_email: req.user.email,
-        client_reference_id: req.params.productId,
-        shipping_address_collection: {
-            allowed_countries: ['US', 'IN', 'AU']
-          },
+    // const session = await stripe.checkout.sessions.create({
+    //     payment_method_types: ['card'],
+    //     mode: 'payment',
+    //     success_url: `http://localhost:3000/checkout-success?session_id=${session.id}`,
+    //     cancel_url: `${req.protocol}://${req.get('host')}/api/v1/products`,
+    //     customer_email: req.user.email,
+    //     client_reference_id: req.params.productId,
+    //     shipping_address_collection: {
+    //         allowed_countries: ['US', 'IN', 'AU']
+    //       },
           
-        line_items: [
-          {
-            price_data: {
-              currency: 'aud',
-              unit_amount: product.price * 100,
-              product_data: {
-                name: `${product.name} Product`,
-                description: product.description
-              }
-            },
-            quantity: 1
-          }
-        ]
-      });
+    //     line_items: [
+    //       {
+    //         price_data: {
+    //           currency: 'aud',
+    //           unit_amount: product.price * 100,
+    //           product_data: {
+    //             name: `${product.name} Product`,
+    //             description: product.description
+    //           }
+    //         },
+    //         quantity: 1
+    //       }
+    //     ]
+    //   });
       
-
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      mode: 'payment',
+      success_url: `http://localhost:3000/products`,
+      cancel_url: `http://localhost:3000/products`,
+      customer_email: req.user.email,
+      client_reference_id: req.params.productId,
+      shipping_address_collection: {
+        allowed_countries: ['US', 'IN', 'AU'],
+      },
+      line_items: [
+        {
+          price_data: {
+            currency: 'aud',
+            unit_amount: product.price * 100,
+            product_data: {
+              name: `${product.name} Product`,
+              description: product.description,
+            },
+          },
+          quantity: 1,
+        },
+      ],
+    });
+    
 
     // send it to the client 
 
@@ -86,6 +110,7 @@ exports.webHookCheckout = async (req, res, next) => {
       product: session.client_reference_id,
       user: user._id,
       price: session.amount_total / 100,
+      sessionId: session.id,
       shippingLocation,
       paymentStatus: 'pending',
       deliveryStatus: 'pending'
@@ -107,7 +132,11 @@ exports.getOrder= catchAsync(async(req,res,next)=>{
 const filter = req.user.role === 'admin'
   ? { _id: req.params.id }
   : { _id: req.params.id, user: req.user.id };
-const order = await Order.findOne(filter)
+  const order = await Order.findOne(filter).populate({
+    path: 'product',
+    select: '_id name imageCover'
+  });
+  
 
  if(!order){
   return next(new AppError("no order found with this id for the user", 404))
@@ -120,3 +149,23 @@ const order = await Order.findOne(filter)
   }
  })
 })
+
+
+
+
+  // In orderController.js
+
+exports.getAllOrdersForUser = catchAsync(async (req, res, next) => {
+  const userId = req.user.id; // assuming authController.protect is used before this
+
+  const orders = await Order.find({ user: userId })
+  .select('_id price paymentStatus deliveryStatus product')
+  .populate('product', 'name imageCover');
+  res.status(200).json({
+    status: 'success',
+    results: orders.length,
+    data: {
+      orders,
+    },
+  });
+});

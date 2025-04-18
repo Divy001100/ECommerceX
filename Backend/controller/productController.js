@@ -3,8 +3,22 @@ const Product = require('./../model/productModel')
 const catchAsync = require('./../Public/utils.js/catchAsync')
 const factory = require('./handleFactory')
 
-exports.aliasTopProducts = (req,res,next)=>{
-    req.query.sort ="price,-ratingdAverage"
+exports.aliasTopProducts = async (req,res,next)=>{
+    if (req.query.preview === "true") {
+        const products = await Product.find()
+          .sort("price -ratingsAverage")
+          .limit(5)
+          .select("name price ratingsAverage priceinINR imageCover");
+      
+        return res.status(200).json({
+          status: "success",
+          data: {
+            products
+          }
+        });
+      }
+      
+    req.query.sort ="price,ratingsAverage"
     req.query.limit ="5"
     req.query.fields = 'name,price,ratingsAverage,brand'
     next()

@@ -8,11 +8,21 @@ router.get('/checkout-session/:productId',authController.protect,
     orderController.getCheckoutSession
 )
 
+
+
 router.get('/my-orders/:id', authController.protect,
     orderController.getOrder)
 
+   
 
+// In routes/orderRoutes.js
 
+router.get(
+    '/my-orders',
+    authController.protect,
+    orderController.getAllOrdersForUser
+  );
+  
 
 
 

@@ -5,26 +5,30 @@ const express= require('express')
 const router = express.Router({mergeParams:true})
 
 // ALLOW USERS TO SEE REVIEWS ONLY THROUGH GET ALL PRODUCTS
-router.use(authController.protect)
+
 
 //two ways to access reviews-1.for users - /productId/reviews
 // 2.for admin - /reviews - so allow users to access only
 
-const checkAdminPannel = (req,res,next)=>{
+// const checkAdminPannel = (req,res,next)=>{
     
-        if(!req.params.productId){
-            return authController.restrictTo('admin')
-           (req,res,next)
-        }
-        next()
-}
-router.use(checkAdminPannel)
+//         if(!req.params.productId){
+//             return authController.restrictTo('admin')
+//            (req,res,next)
+//         }
+//         next()
+// }
+// router.use(checkAdminPannel)
+
 
 router.
 route('/')
 .get(reviewController.getAllReviews)
+
+
+router.use(authController.protect)
     
-  
+router.route('/')
 .post( authController.restrictTo('user'),
     reviewController.createReview)
 

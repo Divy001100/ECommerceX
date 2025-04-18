@@ -17,17 +17,16 @@ const APIFeatures = class{
 
     }
 
-    sort(){
-        if (this.queryString.sort){
-          
-            const sortBy = this.queryString.sort.split(',').join(' ')
-        
-            this.query = this.query.sort(sortBy)
-       }
-       return this
-
-       
-    }
+    sort() {
+        if (this.queryString.sort && this.queryString.sort.trim() !== "") {
+          const sortBy = this.queryString.sort.split(",").join(" ");
+          this.query = this.query.sort(sortBy);
+        } else {
+          this.query = this.query.sort("-createdAt"); // ✅ fallback sort
+        }
+        return this;
+      }
+      
     // SELECT LIMIT FIELDS
     select(){
      if(this.queryString.fields){
@@ -41,15 +40,15 @@ const APIFeatures = class{
     }
 
     pagination(){
-        if(this.queryString.page && this.queryString.limit){
+        // if(this.queryString.page && this.queryString.limit){
         
 
             const page = this.queryString.page*1 ||1
-            const limit = this.queryString.limit*1 ||10
+            const limit = this.queryString.limit*1 ||200
              const skip = (page-1)*limit
              this.query= this.query.skip(skip).limit(limit)
              
-    }
+    // }
     return this
 
 }

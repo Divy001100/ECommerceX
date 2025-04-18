@@ -1,5 +1,5 @@
 import { Outlet } from "react-router"
-import ProductNavigation from "../../components/ProductNavigation"
+import ProductNavigation from "../../components/Navigation/ProductNavigation"
 
 function ProductLayout(){
     return(<>

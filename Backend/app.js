@@ -12,7 +12,7 @@ const reviewRouter = require('./router/reviewRoute')
 const orderRouter = require('./router/orderRoute')
 const orderController = require('./controller/orderController')
 const cors = require('cors')
-
+const path = require('path');
 
 const AppError = require('./Public/utils.js/appError')
 const globalErrorHnadler = require('./controller/errorController')
@@ -64,6 +64,7 @@ app.use(compression())
 
 
 app.set('trust proxy', 1); // or true
+
 
 
 

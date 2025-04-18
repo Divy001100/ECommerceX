@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import ProductsList from "../../components/ProductsList";
+import ProductsList from "../../components/Product/ProductsList";
 import { useLoaderData } from "react-router-dom";
 // import { json } from '@remix-run/router'
 
@@ -19,15 +19,17 @@ export default function ProductsPage(){
 
 // Use Loader to get All product and
 // pass them to productsList
-export async function loader() {
-  const response = await fetch(`/api/v1/products`);
+export async function loader({request}) {
+  const url = new URL(request.url);
+  const queryString = url.searchParams.toString(); // gives full ?... string
+  const res = await fetch(`/api/v1/products?${queryString}`);
 
-  if (!response.ok) {
+  if (!res.ok) {
    throw  new Response(JSON.stringify({message:'could not fetch events'}),
   {status:500}
   )
   }
 
-  const data = await response.json();
+  const data = await res.json();
   return data.data.doc; 
 }

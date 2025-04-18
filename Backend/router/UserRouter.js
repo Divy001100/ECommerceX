@@ -34,7 +34,7 @@ router.patch('/updateMe',
     userController.updateMe
 )
 // deleteme
-router.delete('/deleteMe', 
+router.patch('/deleteMe', 
     userController.deleteMe
 )
 router.get('/me',

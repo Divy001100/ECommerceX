@@ -57,29 +57,21 @@ exports.getOne =(Model, popOptions) =>catchAsync(async(req,res,next)=>{
 
 
 
-exports.createOne = Model=>catchAsync(async(req,res,next)=>{
-    
+exports.createOne = Model => catchAsync(async (req, res, next) => {
+    console.log("🧠 Logged in User ID:", req.user?.id);
+    console.log("🛒 Product ID from params:", req.params?.productId);
   
-    // /product login=user, product =productid nested routes
-
-    // TEMP: Commented out for testing without auth logic
-
-    // if(!req.body.product){
-    //     req.body.product = req.params.productId }
-    // if(!req.body.user){
-    // req.body.user= req.user.id
-    //         }
-            
-   
-    // const product =Product.create
-        const doc = await Model.create(req.body)
-        res.status(200).json({
-            data:{
-                doc
-            }
-        })
-        })
-    
+    if (!req.body.product && req.params.productId) {
+      req.body.product = req.params.productId;
+    }
+    if (!req.body.user && req.user?.id) {
+      req.body.user = req.user.id;
+    }
+  
+    const doc = await Model.create(req.body);
+    res.status(201).json({ data: { doc } });
+  });
+  
 
  const filteredObj = (obj, ...excludedFields)=>{
   let filtered = {}
@@ -111,10 +103,11 @@ exports.updateOne =Model=>catchAsync(async(req,res,next)=>{
 
 exports.deleteOne =Model=>catchAsync(async(req,res,next)=>{
     
-    const doc = await Model.findByIdAndUpdate(req.params.id,)
+    const doc = await Model.findByIdAndUpdate(req.params.id,{active:false})
+    console.log(`req received for `,req.params.id)
            if (!doc){
             return next(new AppError('NO doc found with this ID', 404))
-          } res.status(200)
+          } res.status(204)
           .json({
            status:"success",
            message:`documenthas been deleted`,
