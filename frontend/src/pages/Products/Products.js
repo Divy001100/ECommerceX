@@ -20,17 +20,40 @@ export default function ProductsPage(){
 
 // Use Loader to get All product and
 // pass them to productsList
-export async function loader({request}) {
+// export async function loader({request}) {
+//   const url = new URL(request.url);
+//   const queryString = url.searchParams.toString(); // gives full ?... string
+//   const res = await apiFetch(`/api/v1/products?${queryString}`);
+
+//   if (!res.ok) {
+//    throw  new Response(JSON.stringify({message:'could not fetch events'}),
+//   {status:500}
+//   )
+//   }
+
+//   const data = await res.json();
+//   return data.data.doc; 
+// }
+export async function loader({ request }) {
   const url = new URL(request.url);
   const queryString = url.searchParams.toString(); // gives full ?... string
+
   const res = await apiFetch(`/api/v1/products?${queryString}`);
 
+  console.log("🧾 Status:", res.status);
+
   if (!res.ok) {
-   throw  new Response(JSON.stringify({message:'could not fetch events'}),
-  {status:500}
-  )
+    const err = await res.text();
+    console.error("❌ Error response:", err);
+
+    throw new Response(
+      JSON.stringify({ message: 'could not fetch events' }),
+      { status: 500 }
+    );
   }
 
   const data = await res.json();
-  return data.data.doc; 
+  console.log("✅ Product data:", data);
+
+  return data.data.doc;
 }
