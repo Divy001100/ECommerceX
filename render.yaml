@@ -1,14 +1,10 @@
 services:
-  - type: web
+  - type: static
     name: ecommercex-frontend
-    env: node
     branch: master
     rootDir: frontend
     buildCommand: npm run build
-    startCommand: serve -s build
     staticPublishPath: build
     envVars:
-      - key: NODE_VERSION
-        value: 18
       - key: REACT_APP_API_URL
         value: https://ecommercex-backend.onrender.com
