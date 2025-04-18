@@ -22,6 +22,14 @@ const globalErrorHnadler = require('./controller/errorController')
 const app = express()
 // GLOBAL MIDDLEWEAR 
 
+  
+app.use(cors({
+    origin: 'https://ecommercex-1.onrender.com', //  real frontend URL
+    credentials: true
+  }));
+
+  console.log("🔥 CORS is set for https://ecommercex-1.onrender.com");
+
 // webhook
 app.post(
     '/webhook-checkout',
@@ -51,7 +59,8 @@ app.use(hpp({
 }))
 
 
-app.use(cors());
+
+
 
 // use morgan for dev
 if(process.env.NODE_ENV==='development'){
